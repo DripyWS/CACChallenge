@@ -13,12 +13,14 @@ struct ContentView: View {
     @State private var viewModel = ContentViewModel()
     
     var body: some View {
-        Map(position: $viewModel.position)
-            .mapStyle(.standard)
-            .mapStyle(.standard(elevation: . realistic))
-            .onAppear() {
-                viewModel.checkIfLocationServicesIsEnabled()
-            }
+        Map(position: $viewModel.position) {
+            Marker("???", coordinate: .init(latitude: 37.7749, longitude: -122.4194))
+        }
+        .mapStyle(.standard)
+        .mapStyle(.standard(elevation: . realistic))
+        .onAppear() {
+            viewModel.checkIfLocationServicesIsEnabled()
+        }
     }
 }
 
@@ -31,6 +33,11 @@ struct ContentView: View {
 final class ContentViewModel: NSObject, CLLocationManagerDelegate {
     var locationManager: CLLocationManager?
     var position: MapCameraPosition = .automatic
+    
+    var region = MKCoordinateRegion(
+        center: CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194),
+        span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
+    )
     
     func checkIfLocationServicesIsEnabled() {
         if CLLocationManager.locationServicesEnabled() {
