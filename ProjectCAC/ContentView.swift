@@ -36,7 +36,6 @@ final class ContentViewModel: NSObject, CLLocationManagerDelegate {
         if CLLocationManager.locationServicesEnabled() {
             locationManager = CLLocationManager()
             locationManager?.delegate = self
-            /// DISCUSS WHAT TO DO WITH THIS
             locationManager?.desiredAccuracy = kCLLocationAccuracyBest
         } else {
             print("Please Update Your Location Services Settings")
