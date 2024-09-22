@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyDUIidYT09-LE3K-z0kOrXwIm7G4-87l2I</string>
+	<string>AIzaSyBAvhzPYY4SWAnXyw-Kl4tp3BfhN9FTZSc</string>
 	<key>GCM_SENDER_ID</key>
-	<string>138440721258</string>
+	<string>204752617708</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.DripyWS.servicenet</string>
 	<key>PROJECT_ID</key>
-	<string>projectcac-c6b3e</string>
+	<string>projectcac-79522</string>
 	<key>STORAGE_BUCKET</key>
-	<string>projectcac-c6b3e.appspot.com</string>
+	<string>projectcac-79522.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:138440721258:ios:a62551dd143ffb2ae11b13</string>
+	<string>1:204752617708:ios:c82bbd8c0babb72ca465c9</string>
 </dict>
 </plist>

@@ -1,43 +1,16 @@
 //
-//  ContentView.swift
+//  MapViewModel.swift
 //  ProjectCAC
 //
-//  Created by Chris Yoo on 8/28/24.
+//  Created by 정지혁 on 9/22/24.
 //
 
 import SwiftUI
 import MapKit
 
-
-struct ContentView: View {
-    @State private var viewModel = ContentViewModel()
-    
-    var body: some View {
-        Map(position: $viewModel.position) {
-            Marker("???", coordinate: .init(latitude: 37.7749, longitude: -122.4194))
-        }
-        .mapStyle(.standard)
-        .mapStyle(.standard(elevation: . realistic))
-        .onAppear() {
-            viewModel.checkIfLocationServicesIsEnabled()
-        }
-    }
-}
-
-
-#Preview {
-    ContentView()
-}
-
-
-final class ContentViewModel: NSObject, CLLocationManagerDelegate {
+final class MapViewModel: NSObject, CLLocationManagerDelegate {
     var locationManager: CLLocationManager?
-    var position: MapCameraPosition = .automatic
-    
-    var region = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194),
-        span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
-    )
+    var position: MapCameraPosition = .userLocation(fallback: .automatic)
     
     func checkIfLocationServicesIsEnabled() {
         if CLLocationManager.locationServicesEnabled() {
@@ -70,5 +43,8 @@ final class ContentViewModel: NSObject, CLLocationManagerDelegate {
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         checkLocationAuthorization()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     }
 }
