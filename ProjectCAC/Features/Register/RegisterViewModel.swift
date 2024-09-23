@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MapKit
 
 enum NavigationDestination {
     case camera
@@ -13,9 +14,15 @@ enum NavigationDestination {
 
 @Observable
 final class RegisterViewModel {
+    let location: CLLocationCoordinate2D
+    
     var path: [NavigationDestination] = []
     var description = ""
     var image: UIImage?
+    
+    init(location: CLLocationCoordinate2D) {
+        self.location = location
+    }
     
     func onTapCamera() {
         path.append(.camera)

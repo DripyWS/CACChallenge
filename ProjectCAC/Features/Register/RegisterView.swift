@@ -11,34 +11,73 @@ import MapKit
 struct RegisterView: View {
     @Binding private var isPresented: Bool
     
-    @State private var viewModel = RegisterViewModel()
+    @State private var viewModel: RegisterViewModel
     
-    init(isPresented: Binding<Bool>) {
+    init(isPresented: Binding<Bool>, location: CLLocationCoordinate2D) {
         self._isPresented = isPresented
+        self.viewModel = RegisterViewModel(location: location)
     }
     
     var body: some View {
         NavigationStack(path: $viewModel.path) {
             VStack(spacing: 0) {
-                // TODO: 현재 위치 맵
-                TextField("", text: $viewModel.description)
-                Button {
-                    viewModel.onTapCamera()
-                } label: {
-                    Text(viewModel.image != nil ? "Picture Already Taken" : "Take Picture")
+                Map {
+                    Marker("Location", coordinate: viewModel.location)
                 }
+                .frame(height: 100)
+                .clipShape(RoundedRectangle(cornerRadius: 16))
+                
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Place Description")
+                        .font(.caption)
+                        .foregroundStyle(Color.secondaryFont)
+                    TextField(
+                        "",
+                        text: $viewModel.description,
+                        prompt: Text("more information of crosswalk")
+                            .foregroundStyle(Color.secondaryFont)
+                    )
+                    .padding(12)
+                    .background(
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(Color.secondaryBackground)
+                    )
+                }
+                .padding(.top, 24)
+                
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Photo")
+                        .font(.caption)
+                        .foregroundStyle(Color.secondaryFont)
+                    Button {
+                        viewModel.onTapCamera()
+                    } label: {
+                        HStack {
+                            Text(viewModel.image != nil ? "Picture Already Taken" : "Take Picture")
+                            Spacer()
+                            if let image = viewModel.image {
+                                Image(uiImage: image)
+                                    .scaledToFit()
+                                    .frame(width: 40, height: 40)
+                            }
+                        }
+                    }
+                }
+                .padding(.top, 24)
+                
                 Spacer()
+                
                 Button {
                     // TODO: 있으면 처리
                     isPresented = false
                 } label: {
-                    Text("Add")
+                    Text("Register")
                         .foregroundStyle(Color.white)
                         .padding()
                         .frame(maxWidth: .infinity)
                         .background(
                             RoundedRectangle(cornerRadius: 16)
-                                .fill(Color.red)
+                                .fill(Color.main)
                         )
                 }
                 .disabled(viewModel.image == nil)
@@ -67,5 +106,8 @@ struct RegisterView: View {
 }
 
 #Preview {
-    RegisterView(isPresented: .constant(true))
+    RegisterView(
+        isPresented: .constant(true),
+        location: .init(latitude: 37.7749, longitude: -122.4194)
+    )
 }

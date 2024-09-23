@@ -28,6 +28,8 @@
 		B9CD6D602CA12A6200B57F88 /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CD6D5F2CA12A6200B57F88 /* CameraViewModel.swift */; };
 		B9CD6D622CA12A7700B57F88 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CD6D612CA12A7700B57F88 /* CameraView.swift */; };
 		B9CD6D642CA12ACA00B57F88 /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CD6D632CA12ACA00B57F88 /* CameraPreviewView.swift */; };
+		B9CD6D672CA142FF00B57F88 /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CD6D662CA142FF00B57F88 /* FirestoreManager.swift */; };
+		B9CD6D692CA1432A00B57F88 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CD6D682CA1432A00B57F88 /* StorageManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +69,8 @@
 		B9CD6D5F2CA12A6200B57F88 /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
 		B9CD6D612CA12A7700B57F88 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		B9CD6D632CA12ACA00B57F88 /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
+		B9CD6D662CA142FF00B57F88 /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
+		B9CD6D682CA1432A00B57F88 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +128,7 @@
 			children = (
 				40D4D7232C7EF7D60008BF7C /* ProjectCACApp.swift */,
 				B9CD6D582CA062EB00B57F88 /* GoogleService-Info.plist */,
+				B9CD6D652CA1422A00B57F88 /* Managers */,
 				B9CD6D4C2CA05A5C00B57F88 /* Features */,
 				40D4D7272C7EF7D80008BF7C /* Assets.xcassets */,
 				40D4D7292C7EF7D80008BF7C /* Preview Content */,
@@ -202,6 +207,15 @@
 				B9CD6D632CA12ACA00B57F88 /* CameraPreviewView.swift */,
 			);
 			path = Camera;
+			sourceTree = "<group>";
+		};
+		B9CD6D652CA1422A00B57F88 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				B9CD6D662CA142FF00B57F88 /* FirestoreManager.swift */,
+				B9CD6D682CA1432A00B57F88 /* StorageManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -348,6 +362,7 @@
 				B9CD6D4F2CA05A8F00B57F88 /* SplashView.swift in Sources */,
 				B9CD6D572CA061A000B57F88 /* ContentView.swift in Sources */,
 				B9CD6D642CA12ACA00B57F88 /* CameraPreviewView.swift in Sources */,
+				B9CD6D692CA1432A00B57F88 /* StorageManager.swift in Sources */,
 				B9CD6D5D2CA064D700B57F88 /* RegisterViewModel.swift in Sources */,
 				B9CD6D622CA12A7700B57F88 /* CameraView.swift in Sources */,
 				B9CD6D522CA0603800B57F88 /* MapView.swift in Sources */,
@@ -355,6 +370,7 @@
 				B9CD6D602CA12A6200B57F88 /* CameraViewModel.swift in Sources */,
 				40D4D7242C7EF7D60008BF7C /* ProjectCACApp.swift in Sources */,
 				B9CD6D542CA0604600B57F88 /* MapViewModel.swift in Sources */,
+				B9CD6D672CA142FF00B57F88 /* FirestoreManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

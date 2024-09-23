@@ -12,7 +12,7 @@ struct MapView: View {
     @State private var viewModel = MapViewModel()
     
     var body: some View {
-        ZStack(alignment: .topTrailing) {
+        ZStack(alignment: .bottomTrailing) {
             Map(position: $viewModel.position) {
                 Marker("???", coordinate: .init(latitude: 37.7749, longitude: -122.4194))
             }
@@ -21,16 +21,24 @@ struct MapView: View {
                 viewModel.onTapRegister()
             } label: {
                 Image(systemName: "plus")
-                    .foregroundStyle(Color.black)
+                    .foregroundStyle(Color.white)
                     .font(.title)
+                    .padding(8)
+                    .background(
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(Color.main)
+                    )
             }
-            .padding(.trailing)
+            .padding(EdgeInsets(top: 0, leading: 0, bottom: 40, trailing: 32))
         }
         .onAppear() {
             viewModel.checkLocationAuthorization()
         }
         .fullScreenCover(isPresented: $viewModel.isPresentedRegister) {
-            RegisterView(isPresented: $viewModel.isPresentedRegister)
+            RegisterView(
+                isPresented: $viewModel.isPresentedRegister,
+                location: viewModel.location ?? .init(latitude: 37.7749, longitude: -122.4194)
+            )
         }
     }
 }

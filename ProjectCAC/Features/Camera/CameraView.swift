@@ -24,7 +24,7 @@ struct CameraView: View {
                 }
             HStack {
                 Button {
-                    
+                    viewModel.capturePhoto()
                 } label: {
                     Circle()
                         .frame(width: 60, height: 60)
