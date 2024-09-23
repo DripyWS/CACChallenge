@@ -13,9 +13,16 @@ struct RegisterView: View {
     
     @State private var viewModel: RegisterViewModel
     
-    init(isPresented: Binding<Bool>, location: CLLocationCoordinate2D) {
+    init(
+        isPresented: Binding<Bool>,
+        location: CLLocationCoordinate2D,
+        crosswalkWrapped: CrosswalkWrapped?
+    ) {
         self._isPresented = isPresented
-        self.viewModel = RegisterViewModel(location: location)
+        self.viewModel = RegisterViewModel(
+            location: location,
+            crosswalkWrapped: crosswalkWrapped
+        )
     }
     
     var body: some View {
@@ -77,8 +84,10 @@ struct RegisterView: View {
                 Spacer()
                 
                 Button {
-                    viewModel.addCrosswalk()
-                    isPresented = false
+                    Task {
+                        await viewModel.addCrosswalk()
+                        isPresented = false
+                    }
                 } label: {
                     Text("Register")
                         .foregroundStyle(Color.white)
@@ -117,6 +126,7 @@ struct RegisterView: View {
 #Preview {
     RegisterView(
         isPresented: .constant(true),
-        location: .init(latitude: 37.7749, longitude: -122.4194)
+        location: .init(latitude: 37.7749, longitude: -122.4194),
+        crosswalkWrapped: nil
     )
 }

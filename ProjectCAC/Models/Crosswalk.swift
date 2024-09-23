@@ -9,6 +9,15 @@ import Foundation
 import FirebaseFirestore
 import MapKit
 
+struct CrosswalkWrapped: Identifiable {
+    var crosswalk: Crosswalk
+    var image: UIImage?
+    
+    var id: String? {
+        return crosswalk.id
+    }
+}
+
 struct Crosswalk: Identifiable, Codable {
     @DocumentID var id: String?
     var description: String
@@ -19,5 +28,11 @@ struct Crosswalk: Identifiable, Codable {
 
     var convertedCLLocation: CLLocationCoordinate2D {
         return .init(latitude: location.latitude, longitude: location.longitude)
+    }
+    
+    var displayTimestamp: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+        return dateFormatter.string(from: timestamp)
     }
 }

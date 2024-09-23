@@ -35,7 +35,11 @@ final class FirestoreManager {
     
     func requestAddCrosswalk(of crosswalk: Crosswalk) {
         do {
-            try db.collection("Crosswalk").addDocument(from: crosswalk)
+            if let id = crosswalk.id {
+                try db.collection("Crosswalk").document(id).setData(from: crosswalk)
+            } else {
+                try db.collection("Crosswalk").addDocument(from: crosswalk)
+            }
         } catch {
             print("Error adding document: \(error)")
         }

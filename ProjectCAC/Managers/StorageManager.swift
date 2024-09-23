@@ -27,6 +27,23 @@ final class StorageManager {
         }
     }
     
+    func requestUploadImage(id: String?, uiImage: UIImage) async -> String? {
+        let imageID = id != nil ? id! : UUID().uuidString
+        guard let imageData = uiImage.jpegData(compressionQuality: 0.8) else {
+            return nil
+        }
+        let pathRef = storage.reference(withPath: "images/\(imageID).jpeg")
+        
+        do {
+            _ = try await uploadData(ref: pathRef, data: imageData)
+        } catch {
+            print("Error upload image data - \(error)")
+            return nil
+        }
+        
+        return imageID
+    }
+    
     private func getData(ref: StorageReference) async throws -> Data {
         try await withCheckedThrowingContinuation { continuation in
             ref.getData(maxSize: 1 * 1024 * 1024) { data, error in
@@ -35,6 +52,20 @@ final class StorageManager {
                 } else {
                     continuation.resume(returning: data!)
                 }
+            }
+        }
+    }
+    
+    private func uploadData(ref: StorageReference, data: Data) async throws -> Bool {
+        try await withCheckedThrowingContinuation { continuation in
+            let metadata = StorageMetadata()
+            metadata.contentType = "image/jpeg"
+            
+            ref.putData(data, metadata: metadata) { metadata, error in
+                if let error {
+                    continuation.resume(throwing: NSError(domain: "Firebase Storage Error", code: 0))
+                }
+                continuation.resume(returning: true)
             }
         }
     }

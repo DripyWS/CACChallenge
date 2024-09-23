@@ -14,28 +14,37 @@ struct MapView: View {
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             Map(position: $viewModel.position) {
-                ForEach(viewModel.crosswalks.indices, id: \.self) { index in
+                ForEach(viewModel.crosswalkWrappeds) { crosswalkWrapped in
                     Annotation(
-                        viewModel.crosswalks[index].description,
-                        coordinate: viewModel.crosswalks[index].convertedCLLocation
+                        crosswalkWrapped.crosswalk.description,
+                        coordinate: crosswalkWrapped.crosswalk.convertedCLLocation
                     ) {
-                        VStack(spacing: 0) {
-                            if let image = viewModel.images[index] {
-                                Image(uiImage: image)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 40, height: 40)
-                            } else {
-                                RoundedRectangle(cornerRadius: 8)
-                                    .fill(Color.blue)
-                                    .frame(width: 40, height: 40)
+                        Button {
+                            viewModel.onTapCrosswalk(of: crosswalkWrapped)
+                        } label: {
+                            VStack(spacing: 0) {
+                                if let image = crosswalkWrapped.image {
+                                    Image(uiImage: image)
+                                        .resizable()
+                                        .scaledToFill()
+                                        .clipShape(Circle())
+                                        .frame(width: 40, height: 40)
+                                } else {
+                                    Circle()
+                                        .fill(Color.secondaryBackground)
+                                        .frame(width: 40, height: 40)
+                                }
                             }
+                            .padding(4)
+                            .background(
+                                Circle()
+                                    .fill(Color.white)
+                                    .shadow(
+                                        color: crosswalkWrapped.crosswalk.hasLight ? Color.main : Color.red,
+                                        radius: 8
+                                    )
+                            )
                         }
-                        .padding(12)
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(viewModel.crosswalks[index].hasLight ? Color.green : Color.red)
-                        )
                     }
                 }
             }
@@ -45,26 +54,85 @@ struct MapView: View {
                 viewModel.onTapRegister()
             } label: {
                 Image(systemName: "plus")
+                    .font(.title2)
                     .foregroundStyle(Color.white)
-                    .font(.title)
-                    .padding(8)
+                    .padding(16)
                     .background(
-                        RoundedRectangle(cornerRadius: 16)
+                        Circle()
                             .fill(Color.main)
+                            .shadow(radius: 8)
                     )
             }
-            .padding(EdgeInsets(top: 0, leading: 0, bottom: 40, trailing: 32))
+            .padding(EdgeInsets(top: 0, leading: 0, bottom: 16, trailing: 24))
         }
         .onAppear() {
             viewModel.checkLocationAuthorization()
         }
         .task {
             await viewModel.fetchCrosswalks()
+            print("Task Finished")
         }
-        .fullScreenCover(isPresented: $viewModel.isPresentedRegister) {
+        .sheet(item: $viewModel.selectedCrosswalkWrapped) { crosswalkWrapped in
+            VStack(alignment: .leading, spacing: 8) {
+                if let image = crosswalkWrapped.image {
+                    Image(uiImage: image)
+                        .resizable()
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                        .frame(height: 320)
+                } else {
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color.secondaryBackground)
+                }
+                Text("timestamp: \(crosswalkWrapped.crosswalk.displayTimestamp)")
+                Text("desciption: \(crosswalkWrapped.crosswalk.description)")
+                Spacer()
+                Button {
+                    viewModel.onTapModifyCrosswalk(of: crosswalkWrapped)
+                } label: {
+                    Text("Modify")
+                        .foregroundStyle(Color.white)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(
+                            RoundedRectangle(cornerRadius: 16)
+                                .fill(Color.main)
+                        )
+                }
+            }
+            .padding(24)
+            .presentationDetents([.height(600)])
+        }
+        .fullScreenCover(
+            isPresented: $viewModel.isPresentedRegister,
+            onDismiss: {
+                viewModel.onDismissFullScreenCover()
+                Task {
+                    await viewModel.fetchCrosswalks()
+                }
+            }
+        ) {
             RegisterView(
                 isPresented: $viewModel.isPresentedRegister,
-                location: viewModel.location ?? .init(latitude: 37.7749, longitude: -122.4194)
+                location: viewModel.location ?? .init(latitude: 37.7749, longitude: -122.4194),
+                crosswalkWrapped: nil
+            )
+        }
+        .fullScreenCover(
+            item: $viewModel.selectedModifyCrosswalkWrapped,
+            onDismiss: {
+                viewModel.onDismissFullScreenCover()
+                Task {
+                    await viewModel.fetchCrosswalks()
+                }
+            }
+        ) { crosswalkWraaped in
+            RegisterView(
+                isPresented: Binding(
+                    get: { viewModel.selectedModifyCrosswalkWrapped != nil },
+                    set: { _ in viewModel.selectedModifyCrosswalkWrapped = nil }
+                ),
+                location: crosswalkWraaped.crosswalk.convertedCLLocation,
+                crosswalkWrapped: crosswalkWraaped
             )
         }
     }

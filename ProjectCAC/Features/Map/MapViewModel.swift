@@ -10,14 +10,15 @@ import MapKit
 
 @Observable
 final class MapViewModel: NSObject {
+    private let locationManager = CLLocationManager()
+    
     var isPresentedRegister = false
+    var selectedCrosswalkWrapped: CrosswalkWrapped?
+    var selectedModifyCrosswalkWrapped: CrosswalkWrapped?
+    
     var position: MapCameraPosition = .userLocation(fallback: .automatic)
     var location: CLLocationCoordinate2D?
-    
-    var crosswalks: [Crosswalk] = []
-    var images: [UIImage?] = []
-
-    @ObservationIgnored var locationManager = CLLocationManager()
+    var crosswalkWrappeds: [CrosswalkWrapped] = []
     
     func onTapRegister() {
         isPresentedRegister = true
@@ -25,15 +26,27 @@ final class MapViewModel: NSObject {
     
     func fetchCrosswalks() async {
         let crosswalks = await FirestoreManager.shared.requestCrosswalks()
-        _ = crosswalks.map {
-            self.images.append(nil)
-            self.crosswalks.append($0);
-        }
         
-        for index in crosswalks.indices {
-            let image = await StorageManager.shared.requestImageByID(id: crosswalks[index].image)
-            images[index] = image
+        for crosswalk in crosswalks {
+            let image = await StorageManager.shared.requestImageByID(id: crosswalk.image)
+            crosswalkWrappeds.append(CrosswalkWrapped(crosswalk: crosswalk, image: image))
         }
+    }
+    
+    func onTapCrosswalk(of crosswalkWrapped: CrosswalkWrapped) {
+        self.selectedCrosswalkWrapped = crosswalkWrapped
+    }
+    
+    func onTapModifyCrosswalk(of crosswalkWrapped: CrosswalkWrapped) {
+        self.selectedCrosswalkWrapped = nil
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.selectedModifyCrosswalkWrapped = crosswalkWrapped
+        }
+    }
+    
+    func onDismissFullScreenCover() {
+        self.crosswalkWrappeds = []
     }
     
     func checkLocationAuthorization() {
