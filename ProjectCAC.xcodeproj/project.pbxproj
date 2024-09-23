@@ -30,6 +30,7 @@
 		B9CD6D642CA12ACA00B57F88 /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CD6D632CA12ACA00B57F88 /* CameraPreviewView.swift */; };
 		B9CD6D672CA142FF00B57F88 /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CD6D662CA142FF00B57F88 /* FirestoreManager.swift */; };
 		B9CD6D692CA1432A00B57F88 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CD6D682CA1432A00B57F88 /* StorageManager.swift */; };
+		B9CD6D6C2CA1482400B57F88 /* Crosswalk.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CD6D6B2CA1482400B57F88 /* Crosswalk.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		B9CD6D632CA12ACA00B57F88 /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
 		B9CD6D662CA142FF00B57F88 /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
 		B9CD6D682CA1432A00B57F88 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		B9CD6D6B2CA1482400B57F88 /* Crosswalk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Crosswalk.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +130,7 @@
 			children = (
 				40D4D7232C7EF7D60008BF7C /* ProjectCACApp.swift */,
 				B9CD6D582CA062EB00B57F88 /* GoogleService-Info.plist */,
+				B9CD6D6A2CA1481500B57F88 /* Models */,
 				B9CD6D652CA1422A00B57F88 /* Managers */,
 				B9CD6D4C2CA05A5C00B57F88 /* Features */,
 				40D4D7272C7EF7D80008BF7C /* Assets.xcassets */,
@@ -216,6 +219,14 @@
 				B9CD6D682CA1432A00B57F88 /* StorageManager.swift */,
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		B9CD6D6A2CA1481500B57F88 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B9CD6D6B2CA1482400B57F88 /* Crosswalk.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -368,6 +379,7 @@
 				B9CD6D522CA0603800B57F88 /* MapView.swift in Sources */,
 				B9CD6D5B2CA064CC00B57F88 /* RegisterView.swift in Sources */,
 				B9CD6D602CA12A6200B57F88 /* CameraViewModel.swift in Sources */,
+				B9CD6D6C2CA1482400B57F88 /* Crosswalk.swift in Sources */,
 				40D4D7242C7EF7D60008BF7C /* ProjectCACApp.swift in Sources */,
 				B9CD6D542CA0604600B57F88 /* MapViewModel.swift in Sources */,
 				B9CD6D672CA142FF00B57F88 /* FirestoreManager.swift in Sources */,

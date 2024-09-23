@@ -19,6 +19,7 @@ final class RegisterViewModel {
     var path: [NavigationDestination] = []
     var description = ""
     var image: UIImage?
+    var hasLight = false
     
     init(location: CLLocationCoordinate2D) {
         self.location = location

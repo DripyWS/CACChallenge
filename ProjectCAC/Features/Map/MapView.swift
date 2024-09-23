@@ -14,7 +14,9 @@ struct MapView: View {
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             Map(position: $viewModel.position) {
-                Marker("???", coordinate: .init(latitude: 37.7749, longitude: -122.4194))
+                ForEach(viewModel.crosswalks) { crosswalk in
+                    Marker(crosswalk.description, coordinate: crosswalk.convertedCLLocation)
+                }
             }
             .mapStyle(.standard(elevation: . realistic))
             Button {
@@ -33,6 +35,9 @@ struct MapView: View {
         }
         .onAppear() {
             viewModel.checkLocationAuthorization()
+        }
+        .task {
+            await viewModel.fetchCrosswalks()
         }
         .fullScreenCover(isPresented: $viewModel.isPresentedRegister) {
             RegisterView(

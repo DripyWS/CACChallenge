@@ -13,11 +13,16 @@ final class MapViewModel: NSObject {
     var isPresentedRegister = false
     var position: MapCameraPosition = .userLocation(fallback: .automatic)
     var location: CLLocationCoordinate2D?
+    var crosswalks: [Crosswalk] = []
 
     @ObservationIgnored var locationManager = CLLocationManager()
     
     func onTapRegister() {
         isPresentedRegister = true
+    }
+    
+    func fetchCrosswalks() async {
+        crosswalks = await FirestoreManager.shared.requestCrosswalks()
     }
     
     func checkLocationAuthorization() {

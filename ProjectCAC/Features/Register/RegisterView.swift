@@ -28,24 +28,6 @@ struct RegisterView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 16))
                 
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Place Description")
-                        .font(.caption)
-                        .foregroundStyle(Color.secondaryFont)
-                    TextField(
-                        "",
-                        text: $viewModel.description,
-                        prompt: Text("more information of crosswalk")
-                            .foregroundStyle(Color.secondaryFont)
-                    )
-                    .padding(12)
-                    .background(
-                        RoundedRectangle(cornerRadius: 16)
-                            .fill(Color.secondaryBackground)
-                    )
-                }
-                .padding(.top, 24)
-                
-                VStack(alignment: .leading, spacing: 4) {
                     Text("Photo")
                         .font(.caption)
                         .foregroundStyle(Color.secondaryFont)
@@ -63,7 +45,33 @@ struct RegisterView: View {
                         }
                     }
                 }
-                .padding(.top, 24)
+                .padding(.top, 36)
+                
+                HStack {
+                    Text("Has Voice Traffic Light?")
+                        .font(.caption)
+                        .foregroundStyle(Color.secondaryFont)
+                    Toggle("", isOn: $viewModel.hasLight)
+                }
+                .padding(.top, 36)
+                
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Place Description")
+                        .font(.caption)
+                        .foregroundStyle(Color.secondaryFont)
+                    TextField(
+                        "",
+                        text: $viewModel.description,
+                        prompt: Text("more information of crosswalk")
+                            .foregroundStyle(Color.secondaryFont)
+                    )
+                    .padding(12)
+                    .background(
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(Color.secondaryBackground)
+                    )
+                }
+                .padding(.top, 36)
                 
                 Spacer()
                 
