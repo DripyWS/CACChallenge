@@ -39,6 +39,7 @@ struct RegisterView: View {
                             Spacer()
                             if let image = viewModel.image {
                                 Image(uiImage: image)
+                                    .resizable()
                                     .scaledToFit()
                                     .frame(width: 40, height: 40)
                             }
@@ -76,7 +77,7 @@ struct RegisterView: View {
                 Spacer()
                 
                 Button {
-                    // TODO: 있으면 처리
+                    viewModel.addCrosswalk()
                     isPresented = false
                 } label: {
                     Text("Register")

@@ -13,7 +13,9 @@ final class MapViewModel: NSObject {
     var isPresentedRegister = false
     var position: MapCameraPosition = .userLocation(fallback: .automatic)
     var location: CLLocationCoordinate2D?
+    
     var crosswalks: [Crosswalk] = []
+    var images: [UIImage?] = []
 
     @ObservationIgnored var locationManager = CLLocationManager()
     
@@ -22,7 +24,16 @@ final class MapViewModel: NSObject {
     }
     
     func fetchCrosswalks() async {
-        crosswalks = await FirestoreManager.shared.requestCrosswalks()
+        let crosswalks = await FirestoreManager.shared.requestCrosswalks()
+        _ = crosswalks.map {
+            self.images.append(nil)
+            self.crosswalks.append($0);
+        }
+        
+        for index in crosswalks.indices {
+            let image = await StorageManager.shared.requestImageByID(id: crosswalks[index].image)
+            images[index] = image
+        }
     }
     
     func checkLocationAuthorization() {

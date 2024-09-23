@@ -14,11 +14,33 @@ struct MapView: View {
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             Map(position: $viewModel.position) {
-                ForEach(viewModel.crosswalks) { crosswalk in
-                    Marker(crosswalk.description, coordinate: crosswalk.convertedCLLocation)
+                ForEach(viewModel.crosswalks.indices, id: \.self) { index in
+                    Annotation(
+                        viewModel.crosswalks[index].description,
+                        coordinate: viewModel.crosswalks[index].convertedCLLocation
+                    ) {
+                        VStack(spacing: 0) {
+                            if let image = viewModel.images[index] {
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 40, height: 40)
+                            } else {
+                                RoundedRectangle(cornerRadius: 8)
+                                    .fill(Color.blue)
+                                    .frame(width: 40, height: 40)
+                            }
+                        }
+                        .padding(12)
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(viewModel.crosswalks[index].hasLight ? Color.green : Color.red)
+                        )
+                    }
                 }
             }
             .mapStyle(.standard(elevation: . realistic))
+            
             Button {
                 viewModel.onTapRegister()
             } label: {

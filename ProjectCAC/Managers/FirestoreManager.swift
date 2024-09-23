@@ -33,7 +33,7 @@ final class FirestoreManager {
         return result
     }
     
-    func requestAddCrosswalk(of crosswalk: Crosswalk) async {
+    func requestAddCrosswalk(of crosswalk: Crosswalk) {
         do {
             try db.collection("Crosswalk").addDocument(from: crosswalk)
         } catch {

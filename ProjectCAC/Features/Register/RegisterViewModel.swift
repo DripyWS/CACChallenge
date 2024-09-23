@@ -28,4 +28,15 @@ final class RegisterViewModel {
     func onTapCamera() {
         path.append(.camera)
     }
+    
+    func addCrosswalk() {
+        let crosswalk = Crosswalk(
+            description: description,
+            hasLight: hasLight,
+            image: "2",
+            timestamp: Date(),
+            location: .init(latitude: location.latitude, longitude: location.longitude)
+        )
+        FirestoreManager.shared.requestAddCrosswalk(of: crosswalk)
+    }
 }
