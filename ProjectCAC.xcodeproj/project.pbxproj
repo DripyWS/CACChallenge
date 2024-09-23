@@ -23,6 +23,8 @@
 		B9CD6D542CA0604600B57F88 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CD6D532CA0604600B57F88 /* MapViewModel.swift */; };
 		B9CD6D572CA061A000B57F88 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CD6D562CA061A000B57F88 /* ContentView.swift */; };
 		B9CD6D592CA062EB00B57F88 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B9CD6D582CA062EB00B57F88 /* GoogleService-Info.plist */; };
+		B9CD6D5B2CA064CC00B57F88 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CD6D5A2CA064CC00B57F88 /* RegisterView.swift */; };
+		B9CD6D5D2CA064D700B57F88 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CD6D5C2CA064D700B57F88 /* RegisterViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,8 @@
 		B9CD6D532CA0604600B57F88 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		B9CD6D562CA061A000B57F88 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B9CD6D582CA062EB00B57F88 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B9CD6D5A2CA064CC00B57F88 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		B9CD6D5C2CA064D700B57F88 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,9 +153,9 @@
 		B9CD6D4C2CA05A5C00B57F88 /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				B9CD6D552CA0606700B57F88 /* Register */,
 				B9CD6D4D2CA05A8400B57F88 /* Splash */,
 				B9CD6D502CA0602B00B57F88 /* Map */,
+				B9CD6D552CA0606700B57F88 /* Register */,
 				B9CD6D562CA061A000B57F88 /* ContentView.swift */,
 			);
 			path = Features;
@@ -177,6 +181,8 @@
 		B9CD6D552CA0606700B57F88 /* Register */ = {
 			isa = PBXGroup;
 			children = (
+				B9CD6D5A2CA064CC00B57F88 /* RegisterView.swift */,
+				B9CD6D5C2CA064D700B57F88 /* RegisterViewModel.swift */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -324,7 +330,9 @@
 			files = (
 				B9CD6D4F2CA05A8F00B57F88 /* SplashView.swift in Sources */,
 				B9CD6D572CA061A000B57F88 /* ContentView.swift in Sources */,
+				B9CD6D5D2CA064D700B57F88 /* RegisterViewModel.swift in Sources */,
 				B9CD6D522CA0603800B57F88 /* MapView.swift in Sources */,
+				B9CD6D5B2CA064CC00B57F88 /* RegisterView.swift in Sources */,
 				40D4D7242C7EF7D60008BF7C /* ProjectCACApp.swift in Sources */,
 				B9CD6D542CA0604600B57F88 /* MapViewModel.swift in Sources */,
 			);

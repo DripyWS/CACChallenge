@@ -8,43 +8,46 @@
 import SwiftUI
 import MapKit
 
-final class MapViewModel: NSObject, CLLocationManagerDelegate {
-    var locationManager: CLLocationManager?
+@Observable
+final class MapViewModel: NSObject {
+    var isPresentedRegister = false
     var position: MapCameraPosition = .userLocation(fallback: .automatic)
+    var location: CLLocationCoordinate2D?
+
+    @ObservationIgnored var locationManager = CLLocationManager()
     
-    func checkIfLocationServicesIsEnabled() {
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager = CLLocationManager()
-            locationManager?.delegate = self
-            locationManager?.desiredAccuracy = kCLLocationAccuracyBest
-        } else {
-            print("Please Update Your Location Services Settings")
-        }
+    func onTapRegister() {
+        isPresentedRegister = true
     }
     
-    private func checkLocationAuthorization(){
-        guard let locationManager = locationManager else { return }
+    func checkLocationAuthorization() {
+        locationManager.delegate = self
+        locationManager.startUpdatingLocation()
+        
         switch locationManager.authorizationStatus {
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
         case .restricted:
-            print("Your Location Is Restricted Likely Due to Parental Control")
+            print("Location restricted")
         case .denied:
-            print("You Have Deleted The App Location Setting. Go Into Settings To Turn It On")
-        case .authorizedWhenInUse:
-            break
+            print("Location denied")
         case .authorizedAlways:
-            break
+            print("Location authorizedAlways")
+        case .authorizedWhenInUse:
+            print("Location authorized when in use")
+            self.location = locationManager.location?.coordinate
         @unknown default:
-            break
-            
+            print("Location service disabled")
         }
     }
-    
+}
+
+extension MapViewModel: CLLocationManagerDelegate {
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         checkLocationAuthorization()
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        self.location = locations.first?.coordinate
     }
 }
