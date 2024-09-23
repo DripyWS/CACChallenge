@@ -19,7 +19,7 @@ struct RegisterView: View {
     
     var body: some View {
         NavigationStack(path: $viewModel.path) {
-            VStack {
+            VStack(spacing: 0) {
                 // TODO: 현재 위치 맵
                 TextField("", text: $viewModel.description)
                 Button {
@@ -33,13 +33,33 @@ struct RegisterView: View {
                     isPresented = false
                 } label: {
                     Text("Add")
+                        .foregroundStyle(Color.white)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(
+                            RoundedRectangle(cornerRadius: 16)
+                                .fill(Color.red)
+                        )
                 }
+                .disabled(viewModel.image == nil)
             }
-            .navigationTitle("Add")
+            .padding(24)
+            .navigationTitle("Register New Crosswalk")
+            .navigationBarTitleDisplayMode(.inline)
             .navigationDestination(for: NavigationDestination.self) { destination in
                 switch destination {
                 case .camera:
-                    Text("CameraView")
+                    CameraView(path: $viewModel.path, image: $viewModel.image)
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        isPresented = false
+                    } label: {
+                        Image(systemName: "xmark")
+                            .foregroundStyle(Color.black)
+                    }
                 }
             }
         }
