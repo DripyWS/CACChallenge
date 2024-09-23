@@ -74,17 +74,23 @@ struct MapView: View {
         }
         .sheet(item: $viewModel.selectedCrosswalkWrapped) { crosswalkWrapped in
             VStack(alignment: .leading, spacing: 8) {
+                Text(crosswalkWrapped.crosswalk.description)
+                    .font(.title2)
+                Text(crosswalkWrapped.crosswalk.displayTimestamp)
+                    .font(.caption)
+                    .foregroundStyle(Color.secondaryFont)
+                    .padding(.bottom, 8)
                 if let image = crosswalkWrapped.image {
                     Image(uiImage: image)
                         .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(height: 400)
                         .clipShape(RoundedRectangle(cornerRadius: 12))
-                        .frame(height: 320)
                 } else {
                     RoundedRectangle(cornerRadius: 12)
                         .fill(Color.secondaryBackground)
+                        .frame(height: 400)
                 }
-                Text("timestamp: \(crosswalkWrapped.crosswalk.displayTimestamp)")
-                Text("desciption: \(crosswalkWrapped.crosswalk.description)")
                 Spacer()
                 Button {
                     viewModel.onTapModifyCrosswalk(of: crosswalkWrapped)
