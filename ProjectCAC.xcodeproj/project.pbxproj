@@ -549,6 +549,7 @@
 				DEVELOPMENT_TEAM = 3PFDRPLY6N;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = WayPoint;
 				INFOPLIST_KEY_NSCameraUsageDescription = "This App Needs Camera to Take Photo";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This App Needs Your Location to Show It On The Map";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -580,6 +581,7 @@
 				DEVELOPMENT_TEAM = 3PFDRPLY6N;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = WayPoint;
 				INFOPLIST_KEY_NSCameraUsageDescription = "This App Needs Camera to Take Photo";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This App Needs Your Location to Show It On The Map";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
