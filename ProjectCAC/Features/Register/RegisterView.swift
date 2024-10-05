@@ -37,7 +37,12 @@ struct RegisterView: View {
                             Image(uiImage: image)
                                 .resizable()
                                 .scaledToFit()
-                                .frame(height: 200)
+                                .frame(maxWidth: .infinity, maxHeight: 200, alignment: .center)
+                                .clipShape(RoundedRectangle(cornerRadius: 12))
+                                .background(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .fill(Color.secondaryBackground)
+                                )
                         } else {
                             RoundedRectangle(cornerRadius: 12)
                                 .fill(Color.secondaryBackground)

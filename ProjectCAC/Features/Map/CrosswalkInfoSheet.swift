@@ -22,7 +22,7 @@ struct CrosswalkInfoSheet: View {
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFit()
-                    .frame(height: 360)
+                    .frame(maxWidth: .infinity, maxHeight: 360, alignment: .center)
                     .clipShape(RoundedRectangle(cornerRadius: 12))
                     .background(
                         RoundedRectangle(cornerRadius: 12)
