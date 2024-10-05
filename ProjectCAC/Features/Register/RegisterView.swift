@@ -25,84 +25,74 @@ struct RegisterView: View {
     
     var body: some View {
         NavigationStack(path: $viewModel.path) {
-            VStack(alignment: .leading, spacing: 0) {
-                HStack(spacing: 16) {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("location")
-                            .font(.caption)
-                            .foregroundStyle(Color.secondaryFont)
-                        Map {
-                            Marker("Location", coordinate: viewModel.location)
-                        }
-                        .frame(height: 200)
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
-                    }
-                    
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("Photo")
-                            .font(.caption)
-                            .foregroundStyle(Color.secondaryFont)
-                        Button {
-                            viewModel.onTapCamera()
-                        } label: {
-                            if let image = viewModel.image {
-                                Image(uiImage: image)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(height: 200)
-                            } else {
-                                RoundedRectangle(cornerRadius: 12)
-                                    .fill(Color.secondaryBackground)
-                                    .frame(height: 200)
-                                    .overlay {
-                                        Text("Take Picture")
-                                            .font(.caption)
-                                            .foregroundStyle(Color.secondaryFont)
-                                    }
-                            }
+            VStack(alignment: .leading, spacing: 32) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Photo")
+                        .font(.caption)
+                        .foregroundStyle(Color.secondaryFont)
+                    Button {
+                        viewModel.onTapCamera()
+                    } label: {
+                        if let image = viewModel.image {
+                            Image(uiImage: image)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 200)
+                        } else {
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(Color.secondaryBackground)
+                                .frame(height: 200)
+                                .overlay {
+                                    Text("Take Picture")
+                                        .font(.caption)
+                                        .foregroundStyle(Color.secondaryFont)
+                                }
                         }
                     }
                 }
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("location")
+                        .font(.caption)
+                        .foregroundStyle(Color.secondaryFont)
+                    Map {
+                        Marker("Location", coordinate: viewModel.location)
+                    }
+                    .frame(height: 100)
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                }
                 
-                VStack {
+                VStack(spacing: 12) {
                     HStack {
                         Text("Has Voice Traffic Light?")
                             .font(.caption)
                             .foregroundStyle(Color.secondaryFont)
                         Toggle("", isOn: $viewModel.hasLight)
                     }
+                    Divider()
                     HStack {
                         Text("Has Yellow Block?")
                             .font(.caption)
                             .foregroundStyle(Color.secondaryFont)
                         Toggle("", isOn: $viewModel.hasYellowBlock)
                     }
-                }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 12)
-                .background(
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(Color.secondaryBackground.opacity(0.3))
-                )
-                .padding(.top, 36)
-                
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Place Description")
-                        .font(.caption)
-                        .foregroundStyle(Color.secondaryFont)
-                    TextField(
-                        "",
-                        text: $viewModel.description,
-                        prompt: Text("more information of crosswalk")
+                    Divider()
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Place Description")
+                            .font(.caption)
                             .foregroundStyle(Color.secondaryFont)
-                    )
-                    .padding(12)
-                    .background(
-                        RoundedRectangle(cornerRadius: 16)
-                            .fill(Color.secondaryBackground)
-                    )
+                        TextField(
+                            "",
+                            text: $viewModel.description,
+                            prompt: Text("more information of crosswalk")
+                                .foregroundStyle(Color.secondaryFont)
+                        )
+                        .padding(12)
+                        .background(
+                            RoundedRectangle(cornerRadius: 16)
+                                .fill(Color.secondaryBackground)
+                        )
+                    }
                 }
-                .padding(.top, 36)
                 
                 Spacer()
                 
