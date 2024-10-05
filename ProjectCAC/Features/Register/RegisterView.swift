@@ -9,16 +9,14 @@ import SwiftUI
 import MapKit
 
 struct RegisterView: View {
-    @Binding private var isPresented: Bool
+    @Environment(\.dismiss) private var dismiss
     
     @State private var viewModel: RegisterViewModel
     
     init(
-        isPresented: Binding<Bool>,
         location: CLLocationCoordinate2D,
         crosswalkWrapped: CrosswalkWrapped?
     ) {
-        self._isPresented = isPresented
         self.viewModel = RegisterViewModel(
             location: location,
             crosswalkWrapped: crosswalkWrapped
@@ -94,7 +92,7 @@ struct RegisterView: View {
                 Button {
                     Task {
                         await viewModel.addCrosswalk()
-                        isPresented = false
+                        dismiss()
                     }
                 } label: {
                     Text("Register")
@@ -125,9 +123,10 @@ struct RegisterView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        isPresented = false
+                        dismiss()
                     } label: {
                         Image(systemName: "xmark")
+                            .font(.title3)
                             .foregroundStyle(Color.black)
                     }
                 }
@@ -138,7 +137,6 @@ struct RegisterView: View {
 
 #Preview {
     RegisterView(
-        isPresented: .constant(true),
         location: .init(latitude: 37.7749, longitude: -122.4194),
         crosswalkWrapped: nil
     )

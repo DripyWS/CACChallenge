@@ -12,6 +12,7 @@ import MapKit
 final class MapViewModel: NSObject {
     private let locationManager = CLLocationManager()
     
+    var isPresentedOnboarding = false
     var isPresentedRegister = false
     var selectedCrosswalkWrapped: CrosswalkWrapped?
     var selectedModifyCrosswalkWrapped: CrosswalkWrapped?
@@ -19,6 +20,10 @@ final class MapViewModel: NSObject {
     var position: MapCameraPosition = .userLocation(fallback: .automatic)
     var location: CLLocationCoordinate2D?
     var crosswalkWrappeds: [CrosswalkWrapped] = []
+    
+    func onTapOnboarding() {
+        isPresentedOnboarding = true
+    }
     
     func onTapRegister() {
         isPresentedRegister = true

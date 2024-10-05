@@ -51,18 +51,34 @@ struct MapView: View {
             }
             .mapStyle(.standard(elevation: . realistic))
             
-            Button {
-                viewModel.onTapRegister()
-            } label: {
-                Image(systemName: "plus")
-                    .font(.title2)
-                    .foregroundStyle(Color.white)
-                    .padding(16)
-                    .background(
-                        Circle()
-                            .fill(Color.main)
-                            .shadow(radius: 8)
-                    )
+            VStack(spacing: 12) {
+                Button {
+                    viewModel.onTapOnboarding()
+                } label: {
+                    Image(systemName: "questionmark")
+                        .font(.title2)
+                        .foregroundStyle(Color.main)
+                        .frame(width: 56, height: 56)
+                        .background(
+                            RoundedRectangle(cornerRadius: 16)
+                                .fill(Color.white)
+                                .shadow(radius: 4)
+                        )
+                }
+                
+                Button {
+                    viewModel.onTapRegister()
+                } label: {
+                    Image(systemName: "plus")
+                        .font(.title2)
+                        .foregroundStyle(Color.white)
+                        .frame(width: 56, height: 56)
+                        .background(
+                            RoundedRectangle(cornerRadius: 16)
+                                .fill(Color.main)
+                                .shadow(radius: 4)
+                        )
+                }
             }
             .padding(EdgeInsets(top: 0, leading: 0, bottom: 16, trailing: 24))
         }
@@ -109,6 +125,9 @@ struct MapView: View {
             .padding(24)
             .presentationDetents([.height(600)])
         }
+        .fullScreenCover(isPresented: $viewModel.isPresentedOnboarding) {
+            OnboardingView()
+        }
         .fullScreenCover(
             isPresented: $viewModel.isPresentedRegister,
             onDismiss: {
@@ -119,7 +138,6 @@ struct MapView: View {
             }
         ) {
             RegisterView(
-                isPresented: $viewModel.isPresentedRegister,
                 location: viewModel.location ?? .init(latitude: 37.7749, longitude: -122.4194),
                 crosswalkWrapped: nil
             )
@@ -134,10 +152,6 @@ struct MapView: View {
             }
         ) { crosswalkWraaped in
             RegisterView(
-                isPresented: Binding(
-                    get: { viewModel.selectedModifyCrosswalkWrapped != nil },
-                    set: { _ in viewModel.selectedModifyCrosswalkWrapped = nil }
-                ),
                 location: crosswalkWraaped.crosswalk.convertedCLLocation,
                 crosswalkWrapped: crosswalkWraaped
             )

@@ -53,6 +53,8 @@ struct ConfirmPictureView: View {
                     dismiss()
                 } label: {
                     Image(systemName: "chevron.backward")
+                        .font(.title3)
+                        .foregroundStyle(Color.black)
                 }
             }
         }
