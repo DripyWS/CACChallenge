@@ -28,6 +28,7 @@ final class RegisterViewModel {
     var description = ""
     var image: UIImage?
     var hasLight = false
+    var hasYellowBlock = false
     
     init(
         location: CLLocationCoordinate2D,
@@ -36,7 +37,6 @@ final class RegisterViewModel {
         self.location = location
         self.crosswalkWrapped = crosswalkWrapped
         self.description = crosswalkWrapped?.crosswalk.description ?? ""
-        self.image = crosswalkWrapped?.image
         self.hasLight = crosswalkWrapped?.crosswalk.hasLight ?? false
     }
     
@@ -45,33 +45,42 @@ final class RegisterViewModel {
     }
     
     func addCrosswalk() async {
-        if let crosswalk = crosswalkWrapped?.crosswalk, let image = image {
-            let imageID = await StorageManager.shared.requestUploadImage(id: crosswalk.image, uiImage: image)
-            
-            if let imageID {
-                let newCrosswalk = Crosswalk(
-                    id: crosswalk.id,
-                    description: description,
-                    hasLight: hasLight,
-                    image: imageID,
-                    timestamp: Date(),
-                    location: crosswalk.location
-                )
-                FirestoreManager.shared.requestAddCrosswalk(of: newCrosswalk)
-            }
-        } else if let image = image {
-            let imageID = await StorageManager.shared.requestUploadImage(id: nil, uiImage: image)
-            
-            if let imageID {
-                let crosswalk = Crosswalk(
-                    description: description,
-                    hasLight: hasLight,
-                    image: imageID,
-                    timestamp: Date(),
-                    location: .init(latitude: location.latitude, longitude: location.longitude)
-                )
-                FirestoreManager.shared.requestAddCrosswalk(of: crosswalk)
-            }
+        if let image = image {
+            await addCrosswalkWithImage(image: image)
+        } else {
+            addCrosswalkWithoutImage()
         }
+    }
+    
+    private func addCrosswalkWithoutImage() {
+        let new = Crosswalk(
+            id: crosswalkWrapped?.crosswalk.id,
+            description: description,
+            hasLight: hasLight,
+            hasYellowBlock: hasYellowBlock,
+            image: nil,
+            timestamp: Date(),
+            location: crosswalkWrapped?.crosswalk.location ?? .init(latitude: location.latitude, longitude: location.longitude)
+        )
+        FirestoreManager.shared.requestAddCrosswalk(of: new)
+    }
+    
+    private func addCrosswalkWithImage(
+        image: UIImage
+    ) async {
+        let imageID = await StorageManager.shared.requestUploadImage(
+            id: crosswalkWrapped?.crosswalk.image,
+            uiImage: image
+        )
+        let new = Crosswalk(
+            id: crosswalkWrapped?.crosswalk.id,
+            description: description,
+            hasLight: hasLight,
+            hasYellowBlock: hasYellowBlock,
+            image: imageID,
+            timestamp: Date(),
+            location: crosswalkWrapped?.crosswalk.location ?? .init(latitude: location.latitude, longitude: location.longitude)
+        )
+        FirestoreManager.shared.requestAddCrosswalk(of: new)
     }
 }

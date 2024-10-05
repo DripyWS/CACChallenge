@@ -28,8 +28,12 @@ final class MapViewModel: NSObject {
         let crosswalks = await FirestoreManager.shared.requestCrosswalks()
         
         for crosswalk in crosswalks {
-            let image = await StorageManager.shared.requestImageByID(id: crosswalk.image)
-            crosswalkWrappeds.append(CrosswalkWrapped(crosswalk: crosswalk, image: image))
+            if let id = crosswalk.image {
+                let image = await StorageManager.shared.requestImageByID(id: id)
+                crosswalkWrappeds.append(CrosswalkWrapped(crosswalk: crosswalk, image: image))
+            } else {
+                crosswalkWrappeds.append(CrosswalkWrapped(crosswalk: crosswalk, image: nil))
+            }
         }
     }
     

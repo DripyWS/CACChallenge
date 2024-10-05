@@ -63,6 +63,14 @@ struct RegisterView: View {
                 }
                 .padding(.top, 36)
                 
+                HStack {
+                    Text("Has Yellow Block?")
+                        .font(.caption)
+                        .foregroundStyle(Color.secondaryFont)
+                    Toggle("", isOn: $viewModel.hasYellowBlock)
+                }
+                .padding(.top, 36)
+                
                 VStack(alignment: .leading, spacing: 4) {
                     Text("Place Description")
                         .font(.caption)
@@ -98,7 +106,6 @@ struct RegisterView: View {
                                 .fill(Color.main)
                         )
                 }
-                .disabled(viewModel.image == nil)
             }
             .padding(24)
             .navigationTitle("Register New Crosswalk")

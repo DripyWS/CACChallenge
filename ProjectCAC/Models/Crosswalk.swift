@@ -22,7 +22,8 @@ struct Crosswalk: Identifiable, Codable {
     @DocumentID var id: String?
     var description: String
     var hasLight: Bool
-    var image: String
+    var hasYellowBlock: Bool
+    var image: String?
     var timestamp: Date
     var location: GeoPoint
 
