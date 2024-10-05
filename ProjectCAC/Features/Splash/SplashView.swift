@@ -18,24 +18,24 @@ struct SplashView: View {
     }
     
     var body: some View {
-        VStack {
-            VStack {
-                Image("PencilLine")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 240, height: 240)
+        VStack(spacing: 0) {
+            Image("PencilLine")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 240, height: 240)
+            Text("WayPoint")
+                .font(.system(size: 24, weight: .bold))
+        }
+        .scaleEffect(size)
+        .opacity(opacity)
+        .onAppear {
+            withAnimation(.easeIn(duration: 1.2)) {
+                self.size = 0.9
+                self.opacity = 1.0
             }
-            .scaleEffect(size)
-            .opacity(opacity)
-            .onAppear {
-                withAnimation(.easeIn(duration: 1.2)) {
-                    self.size = 0.9
-                    self.opacity = 1.0
-                }
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    isLoading = false
-                }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                isLoading = false
             }
         }
     }
