@@ -23,28 +23,7 @@ struct MapView: View {
                         Button {
                             viewModel.onTapCrosswalk(of: crosswalkWrapped)
                         } label: {
-                            VStack(spacing: 0) {
-                                if let image = crosswalkWrapped.image {
-                                    Image(uiImage: image)
-                                        .resizable()
-                                        .scaledToFill()
-                                        .clipShape(Circle())
-                                        .frame(width: 40, height: 40)
-                                } else {
-                                    Circle()
-                                        .fill(Color.secondaryBackground)
-                                        .frame(width: 40, height: 40)
-                                }
-                            }
-                            .padding(4)
-                            .background(
-                                Circle()
-                                    .fill(Color.white)
-                                    .shadow(
-                                        color: crosswalkWrapped.crosswalk.hasLight ? Color.main : Color.red,
-                                        radius: 8
-                                    )
-                            )
+                            MapPin(crosswalkWrapped: crosswalkWrapped)
                         }
                     }
                 }
@@ -87,43 +66,12 @@ struct MapView: View {
         }
         .task {
             await viewModel.fetchCrosswalks()
-            print("Task Finished")
         }
         .sheet(item: $viewModel.selectedCrosswalkWrapped) { crosswalkWrapped in
-            VStack(alignment: .leading, spacing: 8) {
-                Text(crosswalkWrapped.crosswalk.description)
-                    .font(.title2)
-                Text(crosswalkWrapped.crosswalk.displayTimestamp)
-                    .font(.caption)
-                    .foregroundStyle(Color.secondaryFont)
-                    .padding(.bottom, 8)
-                if let image = crosswalkWrapped.image {
-                    Image(uiImage: image)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(height: 400)
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                } else {
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(Color.secondaryBackground)
-                        .frame(height: 400)
-                }
-                Spacer()
-                Button {
-                    viewModel.onTapModifyCrosswalk(of: crosswalkWrapped)
-                } label: {
-                    Text("Modify")
-                        .foregroundStyle(Color.white)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(
-                            RoundedRectangle(cornerRadius: 16)
-                                .fill(Color.main)
-                        )
-                }
-            }
-            .padding(24)
-            .presentationDetents([.height(600)])
+            CrosswalkInfoSheet(
+                crosswalkWrapped: crosswalkWrapped,
+                onPressed: { viewModel.onTapModifyCrosswalk(of: crosswalkWrapped) }
+            )
         }
         .fullScreenCover(isPresented: $viewModel.isPresentedOnboarding) {
             OnboardingView()
