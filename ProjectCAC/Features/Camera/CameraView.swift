@@ -12,8 +12,8 @@ struct CameraView: View {
     
     @Environment(\.dismiss) private var dismiss
     
-    init(path: Binding<[NavigationDestination]>, image: Binding<UIImage?>) {
-        self.viewModel = CameraViewModel(path: path, image: image)
+    init(path: Binding<[NavigationData]>) {
+        self.viewModel = CameraViewModel(path: path)
     }
     
     var body: some View {
@@ -55,5 +55,5 @@ struct CameraView: View {
 }
 
 #Preview {
-    CameraView(path: .constant([]), image: .constant(nil))
+    CameraView(path: .constant([]))
 }

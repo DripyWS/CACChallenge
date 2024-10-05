@@ -5,11 +5,18 @@
 //  Created by 정지혁 on 9/22/24.
 //
 
-import UIKit
 import MapKit
+import SwiftUI
+import UIKit
 
 enum NavigationDestination {
     case camera
+    case confirm
+}
+
+struct NavigationData: Hashable {
+    let destination: NavigationDestination
+    let image: UIImage?
 }
 
 @Observable
@@ -17,7 +24,7 @@ final class RegisterViewModel {
     let location: CLLocationCoordinate2D
     let crosswalkWrapped: CrosswalkWrapped?
     
-    var path: [NavigationDestination] = []
+    var path: [NavigationData] = []
     var description = ""
     var image: UIImage?
     var hasLight = false
@@ -34,7 +41,7 @@ final class RegisterViewModel {
     }
     
     func onTapCamera() {
-        path.append(.camera)
+        path.append(NavigationData(destination: .camera, image: nil))
     }
     
     func addCrosswalk() async {

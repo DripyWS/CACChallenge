@@ -103,10 +103,16 @@ struct RegisterView: View {
             .padding(24)
             .navigationTitle("Register New Crosswalk")
             .navigationBarTitleDisplayMode(.inline)
-            .navigationDestination(for: NavigationDestination.self) { destination in
-                switch destination {
+            .navigationDestination(for: NavigationData.self) { data in
+                switch data.destination {
                 case .camera:
-                    CameraView(path: $viewModel.path, image: $viewModel.image)
+                    CameraView(path: $viewModel.path)
+                case .confirm:
+                    ConfirmPictureView(
+                        path: $viewModel.path,
+                        capturedImage: data.image!,
+                        selectedImage: $viewModel.image
+                    )
                 }
             }
             .toolbar {

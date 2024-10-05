@@ -11,15 +11,14 @@ import SwiftUI
 
 @Observable
 final class CameraViewModel: NSObject {
-    var path: Binding<[NavigationDestination]>
-    var image: Binding<UIImage?>
+    var path: Binding<[NavigationData]>
+    var image: UIImage?
     
     let preview: CameraPreviewView
     let output = AVCapturePhotoOutput()
     
-    init(path: Binding<[NavigationDestination]>, image: Binding<UIImage?>) {
+    init(path: Binding<[NavigationData]>) {
         self._path = path
-        self._image = image
         self.preview = CameraPreviewView(cameraPosition: .back, output: output)
     }
     
@@ -30,8 +29,8 @@ final class CameraViewModel: NSObject {
     
     func savePhoto(_ imageData: Data) {
         guard let image = UIImage(data: imageData) else { return }
-        self.image.wrappedValue = image
-        self.path.wrappedValue.removeAll()
+        self.image = image
+        path.wrappedValue.append(NavigationData(destination: .confirm, image: image))
     }
 }
 

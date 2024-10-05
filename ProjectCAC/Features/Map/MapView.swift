@@ -14,6 +14,7 @@ struct MapView: View {
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             Map(position: $viewModel.position) {
+                UserAnnotation()
                 ForEach(viewModel.crosswalkWrappeds) { crosswalkWrapped in
                     Annotation(
                         crosswalkWrapped.crosswalk.description,

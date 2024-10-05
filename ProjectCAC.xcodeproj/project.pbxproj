@@ -18,6 +18,8 @@
 		40D4D7572C7F0A420008BF7C /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 40D4D7562C7F0A420008BF7C /* FirebaseFirestoreCombine-Community */; };
 		40D4D7592C7F0A420008BF7C /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 40D4D7582C7F0A420008BF7C /* FirebaseStorage */; };
 		40D4D75B2C7F0A420008BF7C /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 40D4D75A2C7F0A420008BF7C /* FirebaseStorageCombine-Community */; };
+		B91BFA592CB0DF9F0041C995 /* ConfirmPictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91BFA582CB0DF9F0041C995 /* ConfirmPictureView.swift */; };
+		B91BFA5B2CB0DFB50041C995 /* ConfirmPictureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91BFA5A2CB0DFB50041C995 /* ConfirmPictureViewModel.swift */; };
 		B9CD6D4F2CA05A8F00B57F88 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CD6D4E2CA05A8F00B57F88 /* SplashView.swift */; };
 		B9CD6D522CA0603800B57F88 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CD6D512CA0603800B57F88 /* MapView.swift */; };
 		B9CD6D542CA0604600B57F88 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CD6D532CA0604600B57F88 /* MapViewModel.swift */; };
@@ -60,6 +62,8 @@
 		40D4D73A2C7EF7D80008BF7C /* ProjectCACUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectCACUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		40D4D73E2C7EF7D80008BF7C /* ProjectCACUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCACUITests.swift; sourceTree = "<group>"; };
 		40D4D7402C7EF7D80008BF7C /* ProjectCACUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCACUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		B91BFA582CB0DF9F0041C995 /* ConfirmPictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmPictureView.swift; sourceTree = "<group>"; };
+		B91BFA5A2CB0DFB50041C995 /* ConfirmPictureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmPictureViewModel.swift; sourceTree = "<group>"; };
 		B9CD6D4E2CA05A8F00B57F88 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		B9CD6D512CA0603800B57F88 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		B9CD6D532CA0604600B57F88 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
@@ -164,9 +168,19 @@
 			path = ProjectCACUITests;
 			sourceTree = "<group>";
 		};
+		B91BFA572CB0DF880041C995 /* ConfirmPicture */ = {
+			isa = PBXGroup;
+			children = (
+				B91BFA582CB0DF9F0041C995 /* ConfirmPictureView.swift */,
+				B91BFA5A2CB0DFB50041C995 /* ConfirmPictureViewModel.swift */,
+			);
+			path = ConfirmPicture;
+			sourceTree = "<group>";
+		};
 		B9CD6D4C2CA05A5C00B57F88 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				B91BFA572CB0DF880041C995 /* ConfirmPicture */,
 				B9CD6D5E2CA12A5500B57F88 /* Camera */,
 				B9CD6D4D2CA05A8400B57F88 /* Splash */,
 				B9CD6D502CA0602B00B57F88 /* Map */,
@@ -371,9 +385,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				B9CD6D4F2CA05A8F00B57F88 /* SplashView.swift in Sources */,
+				B91BFA5B2CB0DFB50041C995 /* ConfirmPictureViewModel.swift in Sources */,
 				B9CD6D572CA061A000B57F88 /* ContentView.swift in Sources */,
 				B9CD6D642CA12ACA00B57F88 /* CameraPreviewView.swift in Sources */,
 				B9CD6D692CA1432A00B57F88 /* StorageManager.swift in Sources */,
+				B91BFA592CB0DF9F0041C995 /* ConfirmPictureView.swift in Sources */,
 				B9CD6D5D2CA064D700B57F88 /* RegisterViewModel.swift in Sources */,
 				B9CD6D622CA12A7700B57F88 /* CameraView.swift in Sources */,
 				B9CD6D522CA0603800B57F88 /* MapView.swift in Sources */,
